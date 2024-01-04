@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>About</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'Home/images/icons/favicon.png' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/fonts/linearicons-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'Home/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body class="animsition">
+
+	<div class="container-menu-desktop">
+			<!-- Topbar -->
+			<div class="top-bar">
+				<div class="content-topbar flex-sb-m h-full container">
+					<div class="left-top-bar">
+						Free shipping for standard order over Rs.1999
+					</div>
+
+					<div class="right-top-bar flex-w h-full">
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							Help & FAQs
+						</a>
+						{% if request.session.NAME %}
+						<a href="{% url 'UserLogout' %}" class="flex-c-m trans-04 p-lr-25">
+							Welcome {{request.session.NAME|upper}} / Logout
+						</a>
+						{% else %}
+						<a href="{% url 'LoginSignUp' %}" class="flex-c-m trans-04 p-lr-25">
+							Login/Register
+						</a>
+						{% endif %}
+
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							EN
+						</a>
+
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							USD
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="wrap-menu-desktop">
+				<nav class="limiter-menu-desktop container">
+
+					<!-- Logo desktop -->
+					<a href="{% url 'HomePage' %}" class="logo">
+						<img src="{% static 'Home/images/icons/logo-01.png' %}" alt="IMG-LOGO">
+					</a>
+
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li class="active-menu">
+								<a href="{% url 'HomePage' %}">Home</a>
+<!--								<ul class="sub-menu">-->
+<!--									<li><a href="index.html">Homepage 1</a></li>-->
+<!--									<li><a href="home-02.html">Homepage 2</a></li>-->
+<!--									<li><a href="home-03.html">Homepage 3</a></li>-->
+<!--								</ul>-->
+							</li>
+
+							<li class="label1" data-label1="hot">
+								<a href="product.html">Categories</a>
+									<ul class="sub-menu">
+										{% for c in categories %}
+									<a href="{% url 'ProductsPage' catname=c.CATNAME %}">{{c.CATNAME}}</a>
+										{% endfor %}
+								</ul>
+							</li>
+							<li>
+								<a href="{% url 'FrontendBlog' %}">Blog</a>
+							</li>
+
+							<li>
+								<a href="{% url 'AboutPage' %}">About</a>
+							</li>
+
+							<li>
+								<a href="{% url 'ContactPage' %}">Contact</a>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Icon header -->
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<i class="zmdi zmdi-search"></i>
+						</div>
+
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+							<i class="zmdi zmdi-shopping-cart"></i>
+						</div>
+
+						<a href="#"
+						   class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+							<i class="zmdi zmdi-favorite-outline"></i>
+						</a>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+	<div class="wrap-header-cart js-panel-cart">
+		<div class="s-full js-hide-cart"></div>
+
+		<div class="header-cart flex-col-l p-l-65 p-r-25">
+			<div class="header-cart-title flex-w flex-sb-m p-b-8">
+				<span class="mtext-103 cl2">
+					Your Cart
+				</span>
+
+				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+					<i class="zmdi zmdi-close"></i>
+				</div>
+			</div>
+
+			<div class="header-cart-content flex-w js-pscroll">
+				<ul class="header-cart-wrapitem w-full">
+					{% for i in cart %}
+					<li class="header-cart-item flex-w flex-t m-b-12">
+						<div class="header-cart-item-txt p-t-8">
+							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+								{{i.prodname}}
+							</a>
+
+							<span class="header-cart-item-info">
+								{{i.qnty}} Nos. * Rs. {{i.price}}
+							</span>
+						</div>
+					</li>
+					{% endfor %}
+
+				</ul>
+
+				<div class="w-full">
+					<div class="header-cart-buttons flex-w w-full">
+						<a href="{% url 'cartPage' %}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+							View Cart
+						</a>
+
+						<a href="{% url 'Checkout' %}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+							Check Out
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92"
+             style="background-image: url({% static 'Home/images/bg-01.jpg' %});">
+		<h2 class="ltext-105 cl0 txt-center">
+			About
+		</h2>
+	</section>
+
+
+	<!-- Content page -->
+	<section class="bg0 p-t-75 p-b-120">
+		<div class="container">
+			<div class="row p-b-148">
+				<div class="col-md-7 col-lg-8">
+					<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
+						<h3 class="mtext-111 cl2 p-b-16">
+							Our Story
+						</h3>
+
+						<p class="stext-113 cl6 p-b-26">
+
+							CozaStore Group is a global fashion and design company, with over 4,000 stores in more than 70 markets and online sales
+							in 60	markets.
+
+							All our brands and business ventures share the same passion for making great and more sustainable fashion and design available to everyone. Each brand has its own unique identity, and together they complement each other and strengthen CozaStore Group –
+							all to offer our customers unbeatable value and to enable a more circular lifestyle.
+						</p>
+
+						<p class="stext-113 cl6 p-b-26">
+							Our customers are at the heart of every decision we make. Their behaviours and preferences are
+							constantly evolving, and we are dedicated to fulfilling their every need. Our aim is to continually enhance
+							the customer experience through ongoing initiatives and improvements –
+							from design and product development to increased integration of physical and online stores.
+						</p>
+
+						<p class="stext-113 cl6 p-b-26">
+								Any questions? Let us know in store at Mantri Mall, Sampige Road,
+								560003 Bengaluru Bangalore , India or call us on  1800-889-8000
+						</p>
+					</div>
+				</div>
+
+				<div class="col-11 col-md-5 col-lg-4 m-lr-auto">
+					<div class="how-bor1 ">
+						<div class="hov-img0">
+							<img src="{% static 'Home/images/about-01.jpg' %}" alt="IMG">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="order-md-2 col-md-7 col-lg-8 p-b-30">
+					<div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md">
+						<h3 class="mtext-111 cl2 p-b-16">
+							Our Mission
+						</h3>
+
+						<p class="stext-113 cl6 p-b-26">
+							In 1947, our founder had a vision. Erling Persson wanted to make great fashion available to everyone and to do it in the right way. He built the foundation for a customer-focused, creative, value-driven and responsible company.
+						Our key to the future? An already long-standing culture of innovation and entrepreneurship, a tireless focus on our customers and our ability to scale great ideas to the benefit of millions of people. These are the foundations of our contributions
+							to an industry-wide transformation and our ability to make our own business sustainable and circular.
+						</p>
+
+						<div class="bor16 p-l-29 p-b-9 m-t-22">
+							<p class="stext-114 cl6 p-r-40 p-b-11">
+								Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn't really do it, they just saw something. It seemed obvious to them after a while.
+							</p>
+
+							<span class="stext-111 cl8">
+								- Steve Job’s
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30">
+					<div class="how-bor2">
+						<div class="hov-img0">
+							<img src="{% static 'Home/images/about-02.jpg' %}" alt="IMG">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- Footer -->
+<footer class="bg3 p-t-75 p-b-32">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Categories
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Women
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Men
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Accessories
+							</a>
+						</li>
+
+
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Help
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Track Order
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Returns
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Shipping
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								FAQs
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						GET IN TOUCH
+					</h4>
+
+					<p class="stext-107 cl7 size-201">
+						Any questions? Let us know in store at Mantri Mall, Sampige Road,
+560003 Bengaluru Bangalore , India or call us on  1800-889-8000
+
+					<div class="p-t-27">
+						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-facebook"></i>
+						</a>
+
+						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-instagram"></i>
+						</a>
+
+						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-pinterest-p"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Newsletter
+					</h4>
+
+					<form>
+						<div class="wrap-input1 w-full p-b-4">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
+								   placeholder="Cozastore@gmail.com">
+							<div class="focus-input1 trans-04"></div>
+						</div>
+
+						<div class="p-t-18">
+							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+								Subscribe
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="p-t-40">
+				<div class="flex-c-m flex-w p-b-18">
+					<a href="#" class="m-all-1">
+						<img src="{% static 'Home/images/icons/icon-pay-01.png' %}" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{% static 'Home/images/icons/icon-pay-02.png' %}" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{% static 'Home/images/icons/icon-pay-03.png' %}" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{% static 'Home/images/icons/icon-pay-04.png' %}" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{% static 'Home/images/icons/icon-pay-05.png' %}" alt="ICON-PAY">
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+<!--===============================================================================================-->
+	<script src="{% static 'Home/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'Home/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'Home/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'Home/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'Home/vendor/select2/select2.min.js' %}"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'Home/vendor/MagnificPopup/jquery.magnific-popup.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'Home/vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'Home/js/main.js' %}"></script>
+
+</body>
+</html>

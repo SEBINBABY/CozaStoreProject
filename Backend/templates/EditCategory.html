@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Category</title>
+</head>
+<body>
+{% block content %}
+<form action="{% url 'updatecategory' catid=category.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h3 class="mb-4">Edit Categories</h3>
+                            <h6 class="mb-4">Edit your categories here</h6>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" name="CatName"
+                                       placeholder="NAME"  value="{{category.CATNAME}}">
+                                <label for="floatingInput">NAME</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" placeholder="DESCRIPTION" id="floatingTextarea"
+                                          name="CatDesc" style="height: 150px;">{{category.CATDESC}}</textarea>
+                                <label for="floatingTextarea">DESCRIPTION</label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">UPLOAD IMAGE</label>
+                                <img src="{{category.CATIMAGE.url}}" alt="Image" style="width:80px;height:80px;">
+                                <input class="form-control" type="file" id="formFile" name="CatImage">
+                            </div>
+                            <button type="submit" class="btn btn-primary">EDIT</button>
+                        </div>
+                    </div>
+</form>
+{% endblock %}
+</body>
+</html>
